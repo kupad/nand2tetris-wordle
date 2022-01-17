@@ -39,25 +39,76 @@ class Letter {
         do Memory.poke(memAddress +801, 255);
         return;
     }
-	//  function void drawL(int location) {
-//    var int memAddress;
-//    let memAddress = 16384 + location;
-//    do Memory.poke(memAddress + 0, 0);
-//    do Memory.poke(memAddress + 32, 30);
-//    do Memory.poke(memAddress + 64, 30);
-//    do Memory.poke(memAddress + 96, 30);
-//    do Memory.poke(memAddress + 128, 30);
-//    do Memory.poke(memAddress + 160, 30);
-//    do Memory.poke(memAddress + 192, 30);
-//    do Memory.poke(memAddress + 224, 30);
-//    do Memory.poke(memAddress + 256, 30);
-//    do Memory.poke(memAddress + 288, 30);
-//    do Memory.poke(memAddress + 320, 30);
-//    do Memory.poke(memAddress + 352, 4094);
-//    do Memory.poke(memAddress + 384, 4094);
-//    do Memory.poke(memAddress + 416, 4094);
-//    do Memory.poke(memAddress + 448, 4094);
-//    do Memory.poke(memAddress + 480, 0);
-//    return;
-//  }
+    
+    function void drawInvertedL(int location) {
+        var int memAddress; 
+        let memAddress = 16384+location;
+        // column 0
+        do Memory.poke(memAddress +32, -1);
+        do Memory.poke(memAddress +64, -1);
+        do Memory.poke(memAddress +96, -1);
+        do Memory.poke(memAddress +128, -8065);
+        do Memory.poke(memAddress +160, -8065);
+        do Memory.poke(memAddress +192, -8065);
+        do Memory.poke(memAddress +224, -8065);
+        do Memory.poke(memAddress +256, -8065);
+        do Memory.poke(memAddress +288, -8065);
+        do Memory.poke(memAddress +320, -8065);
+        do Memory.poke(memAddress +352, -8065);
+        do Memory.poke(memAddress +384, -8065);
+        do Memory.poke(memAddress +416, -8065);
+        do Memory.poke(memAddress +448, -8065);
+        do Memory.poke(memAddress +480, -8065);
+        do Memory.poke(memAddress +512, -8065);
+        do Memory.poke(memAddress +544, -8065);
+        do Memory.poke(memAddress +576, -8065);
+        do Memory.poke(memAddress +608, -8065);
+        do Memory.poke(memAddress +640, -8065);
+        do Memory.poke(memAddress +672, 127);
+        do Memory.poke(memAddress +704, 127);
+        do Memory.poke(memAddress +736, 127);
+        do Memory.poke(memAddress +768, 127);
+        do Memory.poke(memAddress +800, 127);
+        do Memory.poke(memAddress +832, -1);
+        do Memory.poke(memAddress +864, -1);
+        do Memory.poke(memAddress +896, -1);
+        do Memory.poke(memAddress +928, -1);
+        do Memory.poke(memAddress +960, -1);
+        do Memory.poke(memAddress +992, -1);
+        // column 1
+        do Memory.poke(memAddress +1, -1);
+        do Memory.poke(memAddress +33, -1);
+        do Memory.poke(memAddress +65, -1);
+        do Memory.poke(memAddress +97, -1);
+        do Memory.poke(memAddress +129, -1);
+        do Memory.poke(memAddress +161, -1);
+        do Memory.poke(memAddress +193, -1);
+        do Memory.poke(memAddress +225, -1);
+        do Memory.poke(memAddress +257, -1);
+        do Memory.poke(memAddress +289, -1);
+        do Memory.poke(memAddress +321, -1);
+        do Memory.poke(memAddress +353, -1);
+        do Memory.poke(memAddress +385, -1);
+        do Memory.poke(memAddress +417, -1);
+        do Memory.poke(memAddress +449, -1);
+        do Memory.poke(memAddress +481, -1);
+        do Memory.poke(memAddress +513, -1);
+        do Memory.poke(memAddress +545, -1);
+        do Memory.poke(memAddress +577, -1);
+        do Memory.poke(memAddress +609, -1);
+        do Memory.poke(memAddress +641, -1);
+        do Memory.poke(memAddress +673, -256);
+        do Memory.poke(memAddress +705, -256);
+        do Memory.poke(memAddress +737, -256);
+        do Memory.poke(memAddress +769, -256);
+        do Memory.poke(memAddress +801, -256);
+        do Memory.poke(memAddress +833, -1);
+        do Memory.poke(memAddress +865, -1);
+        do Memory.poke(memAddress +897, -1);
+        do Memory.poke(memAddress +929, -1);
+        do Memory.poke(memAddress +961, -1);
+        do Memory.poke(memAddress +993, -1);
+        return;
+    }
+
 }
