@@ -1,0 +1,11 @@
+class Tile {
+  function void drawTile(int x, int y) {
+    do Screen.setColor(true);
+    do Screen.drawLine(x, y, x+32, y); //top line
+    do Screen.drawLine(x, y, x, y+32); //left line
+    do Screen.drawLine(x+32, y, x+32, y+32); //right line
+    do Screen.drawLine(x, y+32, x+32, y+32); //bottom line
+    return;
+  }
+}
+

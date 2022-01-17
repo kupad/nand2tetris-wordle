@@ -1,0 +1,63 @@
+class Letter {
+  function void draw(char letter, int location) {
+    do Letter.drawL(location);
+    return;
+  }
+
+    function void drawL(int location) {
+        var int memAddress; 
+        let memAddress = 16384+location;
+        //do Memory.poke(memAddress, 1);
+        // column 0
+        do Memory.poke(memAddress +128, 8064);
+        do Memory.poke(memAddress +160, 8064);
+        do Memory.poke(memAddress +192, 8064);
+        do Memory.poke(memAddress +224, 8064);
+        do Memory.poke(memAddress +256, 8064);
+        do Memory.poke(memAddress +288, 8064);
+        do Memory.poke(memAddress +320, 8064);
+        do Memory.poke(memAddress +352, 8064);
+        do Memory.poke(memAddress +384, 8064);
+        do Memory.poke(memAddress +416, 8064);
+        do Memory.poke(memAddress +448, 8064);
+        do Memory.poke(memAddress +480, 8064);
+        do Memory.poke(memAddress +512, 8064);
+        do Memory.poke(memAddress +544, 8064);
+        do Memory.poke(memAddress +576, 8064);
+        do Memory.poke(memAddress +608, 8064);
+        do Memory.poke(memAddress +640, 8064);
+        do Memory.poke(memAddress +672, -128);
+        do Memory.poke(memAddress +704, -128);
+        do Memory.poke(memAddress +736, -128);
+        do Memory.poke(memAddress +768, -128);
+        do Memory.poke(memAddress +800, -128);
+        // column 1
+        do Memory.poke(memAddress +673, 255);
+        do Memory.poke(memAddress +705, 255);
+        do Memory.poke(memAddress +737, 255);
+        do Memory.poke(memAddress +769, 255);
+        do Memory.poke(memAddress +801, 255);
+        return;
+    }
+	//  function void drawL(int location) {
+//    var int memAddress;
+//    let memAddress = 16384 + location;
+//    do Memory.poke(memAddress + 0, 0);
+//    do Memory.poke(memAddress + 32, 30);
+//    do Memory.poke(memAddress + 64, 30);
+//    do Memory.poke(memAddress + 96, 30);
+//    do Memory.poke(memAddress + 128, 30);
+//    do Memory.poke(memAddress + 160, 30);
+//    do Memory.poke(memAddress + 192, 30);
+//    do Memory.poke(memAddress + 224, 30);
+//    do Memory.poke(memAddress + 256, 30);
+//    do Memory.poke(memAddress + 288, 30);
+//    do Memory.poke(memAddress + 320, 30);
+//    do Memory.poke(memAddress + 352, 4094);
+//    do Memory.poke(memAddress + 384, 4094);
+//    do Memory.poke(memAddress + 416, 4094);
+//    do Memory.poke(memAddress + 448, 4094);
+//    do Memory.poke(memAddress + 480, 0);
+//    return;
+//  }
+}

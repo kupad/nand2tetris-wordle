@@ -1,0 +1,8 @@
+class Main {
+  function void main() {
+    do Letter.draw(0, 0);
+    //do Letter.draw(0, 1);
+    do Tile.drawTile(0,0);
+    return;
+  }
+}
