@@ -16,6 +16,25 @@ class Tile {
 
   // TODO: implement.
   function void drawGray(int x, int y) {
+    do Screen.setColor(true);
+    do Screen.drawLine(x+1, y+1, x+31, y+1); //top line
+    do Screen.drawLine(x+1, y+3, x+31, y+3); 
+    do Screen.drawLine(x+1, y+5, x+31, y+5); 
+    do Screen.drawLine(x+1, y+7, x+31, y+7); 
+    do Screen.drawLine(x+1, y+9, x+31, y+9); 
+    do Screen.drawLine(x+1, y+11, x+31, y+11); 
+    do Screen.drawLine(x+1, y+13, x+31, y+13); 
+    do Screen.drawLine(x+1, y+15, x+31, y+15); 
+    do Screen.drawLine(x+1, y+17, x+31, y+17); 
+    do Screen.drawLine(x+1, y+19, x+31, y+19); 
+    do Screen.drawLine(x+1, y+21, x+31, y+21); 
+    do Screen.drawLine(x+1, y+23, x+31, y+23); 
+    do Screen.drawLine(x+1, y+25, x+31, y+25); 
+    do Screen.drawLine(x+1, y+27, x+31, y+27); 
+    do Screen.drawLine(x+1, y+29, x+31, y+29); 
+    do Screen.drawLine(x+1, y+31, x+31, y+31); //bottom line
+    do Screen.drawLine(x+1, y+1, x+1, y+31); //left line
+    do Screen.drawLine(x+31, y+1, x+31, y+31); //right line
     return;
   }
 }

@@ -15,7 +15,7 @@ class Main {
     do Letter.draw(73, 256 + 15, true); // I
     do Tile.drawBlack(263, 0);
     do Letter.draw(82, 256 + 17, false); // R
-    do Tile.drawWhite(295, 0);
+    do Tile.drawGray(295, 0);
     do Letter.draw(69, 256 + 19, true); // E
     return;
   }
