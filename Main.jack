@@ -1,8 +1,18 @@
 class Main {
   function void main() {
-    do Letter.draw(0, 0);
-    //do Letter.draw(0, 1);
-    do Tile.drawTile(0,0);
+    var int i;
+    do Letter.initLetters();
+    do Screen.setColor(true);
+    do Screen.drawRectangle(0, 32, 511, 63);
+
+    let i = 0;
+    while (i < 27) {
+      do Letter.draw(i + 65, i + 256 + 2, true);
+      do Letter.draw(i + 65, i + 1280 + 2, false);
+      let i = i + 1;
+    }
+
+    // do Tile.drawTile(0, 0);
     return;
   }
 }

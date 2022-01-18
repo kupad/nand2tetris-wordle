@@ -1,114 +1,568 @@
 class Letter {
-  function void draw(char letter, int location) {
-    do Letter.drawL(location);
+  static Array LETTERS;
+
+  function void draw(char letter, int location, boolean color) {
+    var int i, memAddress, value;
+    var Array letter;
+    let letter = LETTERS[letter - 65];
+    let i = 0;
+    while (i < 16) {
+      if (color) {
+        let value = letter[i];
+      } else {
+        let value = ~letter[i];
+      }
+      do Memory.poke(location + 16384 + (32 * i), value);
+      let i = i + 1;
+    }
     return;
   }
 
-    function void drawL(int location) {
-        var int memAddress; 
-        let memAddress = 16384+location;
-        //do Memory.poke(memAddress, 1);
-        // column 0
-        do Memory.poke(memAddress +128, 8064);
-        do Memory.poke(memAddress +160, 8064);
-        do Memory.poke(memAddress +192, 8064);
-        do Memory.poke(memAddress +224, 8064);
-        do Memory.poke(memAddress +256, 8064);
-        do Memory.poke(memAddress +288, 8064);
-        do Memory.poke(memAddress +320, 8064);
-        do Memory.poke(memAddress +352, 8064);
-        do Memory.poke(memAddress +384, 8064);
-        do Memory.poke(memAddress +416, 8064);
-        do Memory.poke(memAddress +448, 8064);
-        do Memory.poke(memAddress +480, 8064);
-        do Memory.poke(memAddress +512, 8064);
-        do Memory.poke(memAddress +544, 8064);
-        do Memory.poke(memAddress +576, 8064);
-        do Memory.poke(memAddress +608, 8064);
-        do Memory.poke(memAddress +640, 8064);
-        do Memory.poke(memAddress +672, -128);
-        do Memory.poke(memAddress +704, -128);
-        do Memory.poke(memAddress +736, -128);
-        do Memory.poke(memAddress +768, -128);
-        do Memory.poke(memAddress +800, -128);
-        // column 1
-        do Memory.poke(memAddress +673, 255);
-        do Memory.poke(memAddress +705, 255);
-        do Memory.poke(memAddress +737, 255);
-        do Memory.poke(memAddress +769, 255);
-        do Memory.poke(memAddress +801, 255);
-        return;
-    }
-    
-    function void drawInvertedL(int location) {
-        var int memAddress; 
-        let memAddress = 16384+location;
-        // column 0
-        do Memory.poke(memAddress +32, -1);
-        do Memory.poke(memAddress +64, -1);
-        do Memory.poke(memAddress +96, -1);
-        do Memory.poke(memAddress +128, -8065);
-        do Memory.poke(memAddress +160, -8065);
-        do Memory.poke(memAddress +192, -8065);
-        do Memory.poke(memAddress +224, -8065);
-        do Memory.poke(memAddress +256, -8065);
-        do Memory.poke(memAddress +288, -8065);
-        do Memory.poke(memAddress +320, -8065);
-        do Memory.poke(memAddress +352, -8065);
-        do Memory.poke(memAddress +384, -8065);
-        do Memory.poke(memAddress +416, -8065);
-        do Memory.poke(memAddress +448, -8065);
-        do Memory.poke(memAddress +480, -8065);
-        do Memory.poke(memAddress +512, -8065);
-        do Memory.poke(memAddress +544, -8065);
-        do Memory.poke(memAddress +576, -8065);
-        do Memory.poke(memAddress +608, -8065);
-        do Memory.poke(memAddress +640, -8065);
-        do Memory.poke(memAddress +672, 127);
-        do Memory.poke(memAddress +704, 127);
-        do Memory.poke(memAddress +736, 127);
-        do Memory.poke(memAddress +768, 127);
-        do Memory.poke(memAddress +800, 127);
-        do Memory.poke(memAddress +832, -1);
-        do Memory.poke(memAddress +864, -1);
-        do Memory.poke(memAddress +896, -1);
-        do Memory.poke(memAddress +928, -1);
-        do Memory.poke(memAddress +960, -1);
-        do Memory.poke(memAddress +992, -1);
-        // column 1
-        do Memory.poke(memAddress +1, -1);
-        do Memory.poke(memAddress +33, -1);
-        do Memory.poke(memAddress +65, -1);
-        do Memory.poke(memAddress +97, -1);
-        do Memory.poke(memAddress +129, -1);
-        do Memory.poke(memAddress +161, -1);
-        do Memory.poke(memAddress +193, -1);
-        do Memory.poke(memAddress +225, -1);
-        do Memory.poke(memAddress +257, -1);
-        do Memory.poke(memAddress +289, -1);
-        do Memory.poke(memAddress +321, -1);
-        do Memory.poke(memAddress +353, -1);
-        do Memory.poke(memAddress +385, -1);
-        do Memory.poke(memAddress +417, -1);
-        do Memory.poke(memAddress +449, -1);
-        do Memory.poke(memAddress +481, -1);
-        do Memory.poke(memAddress +513, -1);
-        do Memory.poke(memAddress +545, -1);
-        do Memory.poke(memAddress +577, -1);
-        do Memory.poke(memAddress +609, -1);
-        do Memory.poke(memAddress +641, -1);
-        do Memory.poke(memAddress +673, -256);
-        do Memory.poke(memAddress +705, -256);
-        do Memory.poke(memAddress +737, -256);
-        do Memory.poke(memAddress +769, -256);
-        do Memory.poke(memAddress +801, -256);
-        do Memory.poke(memAddress +833, -1);
-        do Memory.poke(memAddress +865, -1);
-        do Memory.poke(memAddress +897, -1);
-        do Memory.poke(memAddress +929, -1);
-        do Memory.poke(memAddress +961, -1);
-        do Memory.poke(memAddress +993, -1);
-        return;
-    }
+  /** Make sure to call this function before drawing letters on the screen. */
+  function void initLetters() {
+    var Array letter;
+    let LETTERS = Array.new(27); // We want to support ñ for Spanish.
 
+    // A
+    let LETTERS[0] = Array.new(16);
+    let letter = LETTERS[0];
+    let letter[0] = 4080;
+    let letter[1] = 8184;
+    let letter[2] = 8184;
+    let letter[3] = 7224;
+    let letter[4] = 7224;
+    let letter[5] = 7224;
+    let letter[6] = 8184;
+    let letter[7] = 8184;
+    let letter[8] = 8184;
+    let letter[9] = 7224;
+    let letter[10] = 7224;
+    let letter[11] = 7224;
+    let letter[12] = 7224;
+    let letter[13] = 7224;
+    let letter[14] = 7224;
+    let letter[15] = 7224;
+
+    // B
+    let LETTERS[1] = Array.new(16);
+    let letter = LETTERS[1];
+    let letter[0] = 4088;
+    let letter[1] = 8184;
+    let letter[2] = 8184;
+    let letter[3] = 7224;
+    let letter[4] = 7224;
+    let letter[5] = 7224;
+    let letter[6] = 3128;
+    let letter[7] = 1016;
+    let letter[8] = 1016;
+    let letter[9] = 3128;
+    let letter[10] = 7224;
+    let letter[11] = 7224;
+    let letter[12] = 7224;
+    let letter[13] = 8184;
+    let letter[14] = 8184;
+    let letter[15] = 4088;
+
+    // C
+    let LETTERS[2] = Array.new(16);
+    let letter = LETTERS[2];
+    let letter[0] = 8176;
+    let letter[1] = 8184;
+    let letter[2] = 8184;
+    let letter[3] = 56;
+    let letter[4] = 56;
+    let letter[5] = 56;
+    let letter[6] = 56;
+    let letter[7] = 56;
+    let letter[8] = 56;
+    let letter[9] = 56;
+    let letter[10] = 56;
+    let letter[11] = 56;
+    let letter[12] = 56;
+    let letter[13] = 8184;
+    let letter[14] = 8184;
+    let letter[15] = 8176;
+
+    // D
+    let LETTERS[3] = Array.new(16);
+    let letter = LETTERS[3];
+    let letter[0] = 1016;
+    let letter[1] = 4088;
+    let letter[2] = 4088;
+    let letter[3] = 7224;
+    let letter[4] = 7224;
+    let letter[5] = 7224;
+    let letter[6] = 7224;
+    let letter[7] = 7224;
+    let letter[8] = 7224;
+    let letter[9] = 7224;
+    let letter[10] = 7224;
+    let letter[11] = 7224;
+    let letter[12] = 7224;
+    let letter[13] = 4088;
+    let letter[14] = 4088;
+    let letter[15] = 1016;
+
+    // E
+    let LETTERS[4] = Array.new(16);
+    let letter = LETTERS[4];
+    let letter[0] = 8184;
+    let letter[1] = 8184;
+    let letter[2] = 8184;
+    let letter[3] = 56;
+    let letter[4] = 56;
+    let letter[5] = 56;
+    let letter[6] = 1016;
+    let letter[7] = 1016;
+    let letter[8] = 1016;
+    let letter[9] = 56;
+    let letter[10] = 56;
+    let letter[11] = 56;
+    let letter[12] = 56;
+    let letter[13] = 8184;
+    let letter[14] = 8184;
+    let letter[15] = 8184;
+
+    // F
+    let LETTERS[5] = Array.new(16);
+    let letter = LETTERS[5];
+    let letter[0] = 8184;
+    let letter[1] = 8184;
+    let letter[2] = 8184;
+    let letter[3] = 56;
+    let letter[4] = 56;
+    let letter[5] = 56;
+    let letter[6] = 1016;
+    let letter[7] = 1016;
+    let letter[8] = 1016;
+    let letter[9] = 56;
+    let letter[10] = 56;
+    let letter[11] = 56;
+    let letter[12] = 56;
+    let letter[13] = 56;
+    let letter[14] = 56;
+    let letter[15] = 56;
+
+    // G
+    let LETTERS[6] = Array.new(16);
+    let letter = LETTERS[6];
+    let letter[0] = 8176;
+    let letter[1] = 8184;
+    let letter[2] = 8184;
+    let letter[3] = 56;
+    let letter[4] = 56;
+    let letter[5] = 56;
+    let letter[6] = 56;
+    let letter[7] = 3896;
+    let letter[8] = 7992;
+    let letter[9] = 7992;
+    let letter[10] = 7224;
+    let letter[11] = 7224;
+    let letter[12] = 7224;
+    let letter[13] = 8184;
+    let letter[14] = 8184;
+    let letter[15] = 4080;
+
+    // H
+    let LETTERS[7] = Array.new(16);
+    let letter = LETTERS[7];
+    let letter[0] = 7224;
+    let letter[1] = 7224;
+    let letter[2] = 7224;
+    let letter[3] = 7224;
+    let letter[4] = 7224;
+    let letter[5] = 7224;
+    let letter[6] = 8184;
+    let letter[7] = 8184;
+    let letter[8] = 8184;
+    let letter[9] = 7224;
+    let letter[10] = 7224;
+    let letter[11] = 7224;
+    let letter[12] = 7224;
+    let letter[13] = 7224;
+    let letter[14] = 7224;
+    let letter[15] = 7224;
+
+    // I
+    let LETTERS[8] = Array.new(16);
+    let letter = LETTERS[8];
+    let letter[0] = 8184;
+    let letter[1] = 8184;
+    let letter[2] = 8184;
+    let letter[3] = 960;
+    let letter[4] = 960;
+    let letter[5] = 960;
+    let letter[6] = 960;
+    let letter[7] = 960;
+    let letter[8] = 960;
+    let letter[9] = 960;
+    let letter[10] = 960;
+    let letter[11] = 960;
+    let letter[12] = 960;
+    let letter[13] = 8184;
+    let letter[14] = 8184;
+    let letter[15] = 8184;
+
+    // J
+    let LETTERS[9] = Array.new(16);
+    let letter = LETTERS[9];
+    let letter[0] = 7168;
+    let letter[1] = 7168;
+    let letter[2] = 7168;
+    let letter[3] = 7168;
+    let letter[4] = 7168;
+    let letter[5] = 7168;
+    let letter[6] = 7168;
+    let letter[7] = 7168;
+    let letter[8] = 7168;
+    let letter[9] = 7224;
+    let letter[10] = 7224;
+    let letter[11] = 7224;
+    let letter[12] = 7224;
+    let letter[13] = 8184;
+    let letter[14] = 8184;
+    let letter[15] = 4080;
+
+    // K
+    let LETTERS[10] = Array.new(16);
+    let letter = LETTERS[10];
+    let letter[0] = 6200;
+    let letter[1] = 7224;
+    let letter[2] = 3128;
+    let letter[3] = 1592;
+    let letter[4] = 1848;
+    let letter[5] = 824;
+    let letter[6] = 504;
+    let letter[7] = 504;
+    let letter[8] = 504;
+    let letter[9] = 824;
+    let letter[10] = 1848;
+    let letter[11] = 1592;
+    let letter[12] = 3128;
+    let letter[13] = 7224;
+    let letter[14] = 6200;
+    let letter[15] = 6200;
+
+    // L
+    let LETTERS[11] = Array.new(16);
+    let letter = LETTERS[11];
+    let letter[0] = 56;
+    let letter[1] = 56;
+    let letter[2] = 56;
+    let letter[3] = 56;
+    let letter[4] = 56;
+    let letter[5] = 56;
+    let letter[6] = 56;
+    let letter[7] = 56;
+    let letter[8] = 56;
+    let letter[9] = 56;
+    let letter[10] = 56;
+    let letter[11] = 56;
+    let letter[12] = 56;
+    let letter[13] = 8184;
+    let letter[14] = 8184;
+    let letter[15] = 8184;
+
+    // M
+    let LETTERS[12] = Array.new(16);
+    let letter = LETTERS[12];
+    let letter[0] = 14364;
+    let letter[1] = 14364;
+    let letter[2] = 14364;
+    let letter[3] = 14364;
+    let letter[4] = 15996;
+    let letter[5] = 15996;
+    let letter[6] = 16380;
+    let letter[7] = 14748;
+    let letter[8] = 14748;
+    let letter[9] = 14364;
+    let letter[10] = 14364;
+    let letter[11] = 14364;
+    let letter[12] = 14364;
+    let letter[13] = 14364;
+    let letter[14] = 14364;
+    let letter[15] = 14364;
+
+    // N
+    let LETTERS[13] = Array.new(16);
+    let letter = LETTERS[13];
+    let letter[0] = 7224;
+    let letter[1] = 7224;
+    let letter[2] = 7224;
+    let letter[3] = 7224;
+    let letter[4] = 7224;
+    let letter[5] = 7224;
+    let letter[6] = 7224;
+    let letter[7] = 7288;
+    let letter[8] = 7416;
+    let letter[9] = 7672;
+    let letter[10] = 8120;
+    let letter[11] = 7992;
+    let letter[12] = 7736;
+    let letter[13] = 7224;
+    let letter[14] = 7224;
+    let letter[15] = 7224;
+
+    // O
+    let LETTERS[14] = Array.new(16);
+    let letter = LETTERS[14];
+    let letter[0] = 4080;
+    let letter[1] = 8184;
+    let letter[2] = 8184;
+    let letter[3] = 7224;
+    let letter[4] = 7224;
+    let letter[5] = 7224;
+    let letter[6] = 7224;
+    let letter[7] = 7224;
+    let letter[8] = 7224;
+    let letter[9] = 7224;
+    let letter[10] = 7224;
+    let letter[11] = 7224;
+    let letter[12] = 7224;
+    let letter[13] = 8184;
+    let letter[14] = 8184;
+    let letter[15] = 4080;
+
+    // P
+    let LETTERS[15] = Array.new(16);
+    let letter = LETTERS[15];
+    let letter[0] = 4088;
+    let letter[1] = 8184;
+    let letter[2] = 8184;
+    let letter[3] = 7224;
+    let letter[4] = 7224;
+    let letter[5] = 7224;
+    let letter[6] = 8184;
+    let letter[7] = 8184;
+    let letter[8] = 4088;
+    let letter[9] = 56;
+    let letter[10] = 56;
+    let letter[11] = 56;
+    let letter[12] = 56;
+    let letter[13] = 56;
+    let letter[14] = 56;
+    let letter[15] = 56;
+
+    // Q
+    let LETTERS[16] = Array.new(16);
+    let letter = LETTERS[16];
+    let letter[0] = 4080;
+    let letter[1] = 8184;
+    let letter[2] = 8184;
+    let letter[3] = 7224;
+    let letter[4] = 7224;
+    let letter[5] = 7224;
+    let letter[6] = 7224;
+    let letter[7] = 7224;
+    let letter[8] = 7224;
+    let letter[9] = 7608;
+    let letter[10] = 8120;
+    let letter[11] = 7992;
+    let letter[12] = 4088;
+    let letter[13] = 4088;
+    let letter[14] = 7664;
+    let letter[15] = 6144;
+
+    // R
+    let LETTERS[17] = Array.new(16);
+    let letter = LETTERS[17];
+    let letter[0] = 4088;
+    let letter[1] = 8184;
+    let letter[2] = 8184;
+    let letter[3] = 7224;
+    let letter[4] = 7224;
+    let letter[5] = 7224;
+    let letter[6] = 4088;
+    let letter[7] = 2040;
+    let letter[8] = 4088;
+    let letter[9] = 7224;
+    let letter[10] = 7224;
+    let letter[11] = 7224;
+    let letter[12] = 7224;
+    let letter[13] = 7224;
+    let letter[14] = 7224;
+    let letter[15] = 7224;
+
+    // S
+    let LETTERS[18] = Array.new(16);
+    let letter = LETTERS[18];
+    let letter[0] = 8176;
+    let letter[1] = 8184;
+    let letter[2] = 8184;
+    let letter[3] = 56;
+    let letter[4] = 56;
+    let letter[5] = 56;
+    let letter[6] = 4088;
+    let letter[7] = 8184;
+    let letter[8] = 8176;
+    let letter[9] = 7168;
+    let letter[10] = 7168;
+    let letter[11] = 7168;
+    let letter[12] = 7168;
+    let letter[13] = 8184;
+    let letter[14] = 8184;
+    let letter[15] = 4088;
+
+    // T
+    let LETTERS[19] = Array.new(16);
+    let letter = LETTERS[19];
+    let letter[0] = 8184;
+    let letter[1] = 8184;
+    let letter[2] = 8184;
+    let letter[3] = 960;
+    let letter[4] = 960;
+    let letter[5] = 960;
+    let letter[6] = 960;
+    let letter[7] = 960;
+    let letter[8] = 960;
+    let letter[9] = 960;
+    let letter[10] = 960;
+    let letter[11] = 960;
+    let letter[12] = 960;
+    let letter[13] = 960;
+    let letter[14] = 960;
+    let letter[15] = 960;
+
+    // U
+    let LETTERS[20] = Array.new(16);
+    let letter = LETTERS[20];
+    let letter[0] = 7224;
+    let letter[1] = 7224;
+    let letter[2] = 7224;
+    let letter[3] = 7224;
+    let letter[4] = 7224;
+    let letter[5] = 7224;
+    let letter[6] = 7224;
+    let letter[7] = 7224;
+    let letter[8] = 7224;
+    let letter[9] = 7224;
+    let letter[10] = 7224;
+    let letter[11] = 7224;
+    let letter[12] = 7224;
+    let letter[13] = 8184;
+    let letter[14] = 8184;
+    let letter[15] = 4080;
+
+    // V
+    let LETTERS[21] = Array.new(16);
+    let letter = LETTERS[21];
+    let letter[0] = 7224;
+    let letter[1] = 7224;
+    let letter[2] = 7224;
+    let letter[3] = 7224;
+    let letter[4] = 7224;
+    let letter[5] = 7224;
+    let letter[6] = 7224;
+    let letter[7] = 7224;
+    let letter[8] = 7224;
+    let letter[9] = 7224;
+    let letter[10] = 7224;
+    let letter[11] = 3696;
+    let letter[12] = 4080;
+    let letter[13] = 2016;
+    let letter[14] = 960;
+    let letter[15] = 384;
+
+    // W
+    let LETTERS[22] = Array.new(16);
+    let letter = LETTERS[22];
+    let letter[0] = 14748;
+    let letter[1] = 14748;
+    let letter[2] = 14748;
+    let letter[3] = 14748;
+    let letter[4] = 14748;
+    let letter[5] = 14748;
+    let letter[6] = 14748;
+    let letter[7] = 14748;
+    let letter[8] = 14748;
+    let letter[9] = 14748;
+    let letter[10] = 14748;
+    let letter[11] = 16380;
+    let letter[12] = 16380;
+    let letter[13] = 16380;
+    let letter[14] = 1632;
+    let letter[15] = 1632;
+
+    // X
+    let LETTERS[23] = Array.new(16);
+    let letter = LETTERS[23];
+    let letter[0] = 7224;
+    let letter[1] = 7224;
+    let letter[2] = 7224;
+    let letter[3] = 7224;
+    let letter[4] = 7224;
+    let letter[5] = 3696;
+    let letter[6] = 3696;
+    let letter[7] = 960;
+    let letter[8] = 960;
+    let letter[9] = 3696;
+    let letter[10] = 3696;
+    let letter[11] = 7224;
+    let letter[12] = 7224;
+    let letter[13] = 7224;
+    let letter[14] = 7224;
+    let letter[15] = 7224;
+
+    // Y
+    let LETTERS[24] = Array.new(16);
+    let letter = LETTERS[24];
+    let letter[0] = 7224;
+    let letter[1] = 7224;
+    let letter[2] = 7224;
+    let letter[3] = 7224;
+    let letter[4] = 7224;
+    let letter[5] = 3696;
+    let letter[6] = 3696;
+    let letter[7] = 2016;
+    let letter[8] = 960;
+    let letter[9] = 960;
+    let letter[10] = 960;
+    let letter[11] = 960;
+    let letter[12] = 960;
+    let letter[13] = 960;
+    let letter[14] = 960;
+    let letter[15] = 960;
+
+    // Z
+    let LETTERS[25] = Array.new(16);
+    let letter = LETTERS[25];
+    let letter[0] = 8184;
+    let letter[1] = 8184;
+    let letter[2] = 8184;
+    let letter[3] = 7680;
+    let letter[4] = 7680;
+    let letter[5] = 3840;
+    let letter[6] = 3840;
+    let letter[7] = 960;
+    let letter[8] = 960;
+    let letter[9] = 240;
+    let letter[10] = 240;
+    let letter[11] = 120;
+    let letter[12] = 120;
+    let letter[13] = 8184;
+    let letter[14] = 8184;
+    let letter[15] = 8184;
+
+    // Ñ
+    let LETTERS[26] = Array.new(16);
+    let letter = LETTERS[26];
+    let letter[0] = 480;
+    let letter[1] = 1920;
+    let letter[2] = 0;
+    let letter[3] = 7224;
+    let letter[4] = 7224;
+    let letter[5] = 7224;
+    let letter[6] = 7224;
+    let letter[7] = 7288;
+    let letter[8] = 7416;
+    let letter[9] = 7672;
+    let letter[10] = 8120;
+    let letter[11] = 7992;
+    let letter[12] = 7736;
+    let letter[13] = 7224;
+    let letter[14] = 7224;
+    let letter[15] = 7224;
+
+    return;
+  }
 }
