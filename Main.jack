@@ -3,7 +3,29 @@ class Main {
     do Letter.initLetters();
     do Main.drawFirstRow();
     do Main.drawAlphabet();
+    do Main.readWord();
     return;
+  }
+
+  function void readWord() {
+    var int i;
+    var char c;
+    var String word;
+    let i = 0;
+    while (i < 5) {
+      let c = 0; // c is invalid at the start.
+      while (~Main.isLetter(c)) {
+        let c = Keyboard.readChar();
+        do Output.backSpace();
+      }
+      do Letter.draw(c, 1280 + 11 + (i * 2), true);
+      let i = i + 1;
+    }
+    return;
+  }
+
+  function boolean isLetter(char c) {
+    return ((c > 64) & (c < 91)) | (c = 59);
   }
 
   function void drawFirstRow() {
