@@ -1,16 +1,29 @@
 class Main {
+  static String secret;
+
   function void main() {
+    var String guess;
+    
+    let secret = "SHIRE";
+    
     do Letter.initLetters();
+
     do Main.drawFirstRow();
     do Main.drawAlphabet();
-    do Main.readWord();
+
+    let guess = Main.readWord();
+    do Main.checkGuess(guess);
+
     return;
   }
 
-  function void readWord() {
+  function String readWord() {
     var int i;
     var char c;
     var String word;
+
+    let word = String.new(5);
+
     let i = 0;
     while (i < 5) {
       let c = 0; // c is invalid at the start.
@@ -18,10 +31,33 @@ class Main {
         let c = Keyboard.readChar();
         do Output.backSpace();
       }
+      do word.appendChar(c);
       do Letter.draw(c, 1280 + 11 + (i * 2), true);
       let i = i + 1;
     }
+    return word;
+  }
+
+  function void checkGuess(String guess) {
+    var int i;
+
+    let i = 0;
+    while (i < 5) {
+        if(Main.checkChar(guess, i)) {
+          do Tile.drawBlack(167+(i*32), 32);
+          do Letter.draw(guess.charAt(i), 1280 + 11 + (i * 2), false);
+        } else {
+          do Tile.drawWhite(167+(i*32), 32);
+          do Letter.draw(guess.charAt(i), 1280 + 11 + (i * 2), true);
+        }
+        let i = i + 1;
+    }
+
     return;
+  }
+
+  function boolean checkChar(String guess, int i) {
+    return guess.charAt(i) = secret.charAt(i);
   }
 
   function boolean isLetter(char c) {
