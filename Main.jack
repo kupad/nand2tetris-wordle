@@ -1,18 +1,35 @@
 class Main {
   function void main() {
-    var int i;
     do Letter.initLetters();
-    do Screen.setColor(true);
-    do Screen.drawRectangle(0, 32, 511, 63);
+    do Main.drawFirstRow();
+    do Main.drawAlphabet();
+    return;
+  }
 
+  function void drawFirstRow() {
+    do Tile.drawTile(167, 0);
+    do Letter.draw(83, 256 + 11, true); // S
+    do Tile.drawTile(199, 0);
+    do Letter.draw(72, 256 + 13, true); // H
+    do Tile.drawTile(231, 0);
+    do Letter.draw(73, 256 + 15, true); // I
+    do Tile.drawTile(263, 0);
+    do Letter.draw(82, 256 + 17, true); // R
+    do Tile.drawTile(295, 0);
+    do Letter.draw(69, 256 + 19, true); // E
+    return;
+  }
+
+  function void drawAlphabet() {
+    var int i;
     let i = 0;
+    do Screen.setColor(true);
+    do Screen.drawRectangle(0, 224, 511, 255);
     while (i < 27) {
-      do Letter.draw(i + 65, i + 256 + 2, true);
-      do Letter.draw(i + 65, i + 1280 + 2, false);
+      do Letter.draw(i + 65, i + 6400 + 2, true);
+      do Letter.draw(i + 65, i + 7424 + 2, false);
       let i = i + 1;
     }
-
-    // do Tile.drawTile(0, 0);
     return;
   }
 }
