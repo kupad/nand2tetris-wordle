@@ -1,10 +1,14 @@
 class Main {
   static String secret;
+  static int GUESS_WRONG, GUESS_EXACT, GUESS_IN_WORD;
 
   function void main() {
     var String guess;
     
     let secret = "SHIRE";
+    let GUESS_WRONG = 0;
+    let GUESS_EXACT = 1;
+    let GUESS_IN_WORD = 2;
     
     do Letter.initLetters();
 
@@ -39,16 +43,22 @@ class Main {
   }
 
   function void checkGuess(String guess) {
-    var int i;
+    var int i, result;
 
     let i = 0;
     while (i < 5) {
-        if(Main.checkChar(guess, i)) {
+        let result = Main.checkChar(guess, i);
+        if(result = GUESS_EXACT) {
           do Tile.drawBlack(167+(i*32), 32);
           do Letter.draw(guess.charAt(i), 1280 + 11 + (i * 2), false);
         } else {
-          do Tile.drawWhite(167+(i*32), 32);
-          do Letter.draw(guess.charAt(i), 1280 + 11 + (i * 2), true);
+          if (result = GUESS_IN_WORD) { // ugh.
+            do Tile.drawGray(167+(i*32), 32);
+            do Letter.draw(guess.charAt(i), 1280 + 11 + (i * 2), true);
+          } else {
+            do Tile.drawWhite(167+(i*32), 32);
+            do Letter.draw(guess.charAt(i), 1280 + 11 + (i * 2), true);
+          }
         }
         let i = i + 1;
     }
@@ -56,8 +66,24 @@ class Main {
     return;
   }
 
-  function boolean checkChar(String guess, int i) {
-    return guess.charAt(i) = secret.charAt(i);
+  function int checkChar(String guess, int i) {
+    var char c;
+    var int j;
+
+    let c = guess.charAt(i);
+    if (c = secret.charAt(i)) {
+      return GUESS_EXACT;
+    }
+
+    let j = 0;
+    while (j < 5) {
+      if (c = secret.charAt(j)) {
+        return GUESS_IN_WORD;
+      }
+      let j = j + 1;
+    }
+
+    return GUESS_WRONG;
   }
 
   function boolean isLetter(char c) {
