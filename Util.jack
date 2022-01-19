@@ -1,0 +1,6 @@
+class Util {
+  /** We were only thinking about positive values for this. */
+  function int mod(int x, int y) {
+    return x - ((x / y) * y);
+  }
+}

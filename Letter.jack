@@ -29,7 +29,7 @@ class Letter {
   }
 
   /** Make sure to call this function before drawing letters on the screen. */
-  function void initLetters() {
+  function void init() {
     var Array letter;
     let LETTERS = Array.new(27); // We want to support ñ for Spanish.
 

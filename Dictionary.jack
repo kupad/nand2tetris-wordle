@@ -1,0 +1,29 @@
+class Dictionary {
+  static Array WORDS;
+  static int SIZE;
+
+  function int size() {
+    return SIZE;
+  }
+
+  function String word(int i) {
+    return WORDS[i];
+  }
+
+  /** Make sure to call this function before playing. */
+  function void init() {
+    let SIZE = 10;
+    let WORDS = Array.new(SIZE);
+    let WORDS[0] = "ABACI";
+    let WORDS[1] = "SHIRE";
+    let WORDS[2] = "PROXY";
+    let WORDS[3] = "POWER";
+    let WORDS[4] = "STUFF";
+    let WORDS[5] = "QUERY";
+    let WORDS[6] = "STUFF";
+    let WORDS[7] = "YUMMY";
+    let WORDS[8] = "ZEBRA";
+    let WORDS[9] = "ELITE";
+    return;
+  }
+}

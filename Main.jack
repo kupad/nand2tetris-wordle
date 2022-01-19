@@ -2,19 +2,15 @@ class Main {
   static String secret;
   static int GUESS_WRONG, GUESS_EXACT, GUESS_IN_WORD;
 
-
   function void main() {
-   
-    let secret = "SHIRE";
-
     //initialize statics
     let GUESS_WRONG = 0;
     let GUESS_EXACT = 1;
     let GUESS_IN_WORD = 2;
-    do Letter.initLetters();
+    do Dictionary.init();
+    do Letter.init();
 
     //do Tile.drawGrid();
-
     //do Main.drawFirstRow();
     //do Main.drawAlphabet();
 
@@ -25,9 +21,12 @@ class Main {
 
   function void game() {
     var String guess;
-    var int round;
+    var int round, n;
     var boolean won;
-    
+
+    let n = Keyboard.readInt("Enter a number: ");
+    do Screen.clearScreen();
+    let secret = Dictionary.word(Util.mod(n, Dictionary.size()));
     let round = 0;
     while(~won & (round < 6)) {
         let guess = Main.readWord(round);
