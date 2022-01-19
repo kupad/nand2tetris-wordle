@@ -1,6 +1,16 @@
 class Letter {
   static Array LETTERS;
 
+  function void drawWhite(char letter, int location) {
+    do Letter.draw(letter, location, false);
+    return;
+  }
+  
+  function void drawBlack(char letter, int location) {
+    do Letter.draw(letter, location, true);
+    return;
+  }
+
   function void draw(char letter, int location, boolean color) {
     var int i, memAddress, value;
     var Array letter;
