@@ -14,16 +14,14 @@ class Main {
     let GUESS_IN_WORD = 2;
     do Letter.initLetters();
 
-    do Tile.drawGrid();
+    //do Tile.drawGrid();
 
-    /*
     do Main.drawFirstRow();
     do Main.drawAlphabet();
 
     //play:
     let guess = Main.readWord();
     do Main.checkGuess(guess);
-    */
 
     return;
   }
