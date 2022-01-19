@@ -4,6 +4,7 @@ Wordle implemented in JACK
 by Jonathan Reyes and Phil Dreizen
 
 ## TODOs
+- Dotted line tile for each round
 - Handle backspace
 - Wait for ENTER key to confirm word
 - Tell player if they won or lost
