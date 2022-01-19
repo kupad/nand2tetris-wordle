@@ -4,7 +4,6 @@ class Main {
 
 
   function void main() {
-    var String guess;
    
     let secret = "SHIRE";
 
@@ -16,22 +15,33 @@ class Main {
 
     //do Tile.drawGrid();
 
-    do Main.drawFirstRow();
-    do Main.drawAlphabet();
+    //do Main.drawFirstRow();
+    //do Main.drawAlphabet();
 
-    //play:
-    let guess = Main.readWord();
-    do Main.checkGuess(guess);
+    do Main.game();
+
+    return;
+  }
+
+  function void game() {
+    var String guess;
+    var int round;
+    var boolean won;
+    
+    let round = 0;
+    while(~won & (round < 6)) {
+        let guess = Main.readWord(round);
+        let won = Main.checkGuess(round, guess);
+        let round = round + 1;
+    }
 
     return;
   }
   
-  function String readWord() {
-    var int i, tryno;
+  function String readWord(int round) {
+    var int i;
     var char c;
     var String word;
-
-    let tryno = 1;
 
     let word = String.new(5);
 
@@ -43,31 +53,34 @@ class Main {
         do Output.backSpace();
       }
       do word.appendChar(c);
-      do Tile.drawLetter(c, tryno, 5+i);
+      do Tile.drawLetter(c, round, 5+i);
       let i = i + 1;
     }
     return word;
   }
 
-  function void checkGuess(String guess) {
-    var int i, result, tryno;
+  function boolean checkGuess(int round, String guess) {
+    var int i, result;
+    var boolean isexact;
 
-    let tryno = 1;
+    let isexact = true;
 
     let i = 0;
     while (i < 5) {
         let result = Main.checkChar(guess, i);
         if(result = GUESS_EXACT) {
-          do Tile.drawSolidLetter(guess.charAt(i), tryno, 5+i);
+          do Tile.drawSolidLetter(guess.charAt(i), round, 5+i);
         } else{if (result = GUESS_IN_WORD) { // ugh.
-          do Tile.drawGrayLetter(guess.charAt(i), tryno, 5+i);
+          do Tile.drawGrayLetter(guess.charAt(i), round, 5+i);
+          let isexact = false;
         } else {
-          do Tile.drawOutlinedLetter(guess.charAt(i), tryno, 5+i);
+          do Tile.drawOutlinedLetter(guess.charAt(i), round, 5+i);
+          let isexact = false;
         }}
         let i = i + 1;
     }
 
-    return;
+    return isexact;
   }
 
   function int checkChar(String guess, int i) {
