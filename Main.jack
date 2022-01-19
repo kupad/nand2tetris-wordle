@@ -2,29 +2,36 @@ class Main {
   static String secret;
   static int GUESS_WRONG, GUESS_EXACT, GUESS_IN_WORD;
 
+
   function void main() {
     var String guess;
-    
+   
     let secret = "SHIRE";
+
+    //initialize statics
     let GUESS_WRONG = 0;
     let GUESS_EXACT = 1;
     let GUESS_IN_WORD = 2;
-    
     do Letter.initLetters();
+
+    //do Tile.drawGrid();
 
     do Main.drawFirstRow();
     do Main.drawAlphabet();
 
+    //play:
     let guess = Main.readWord();
     do Main.checkGuess(guess);
 
     return;
   }
-
+  
   function String readWord() {
-    var int i;
+    var int i, tryno;
     var char c;
     var String word;
+
+    let tryno = 1;
 
     let word = String.new(5);
 
@@ -36,30 +43,27 @@ class Main {
         do Output.backSpace();
       }
       do word.appendChar(c);
-      do Letter.draw(c, 1280 + 11 + (i * 2), true);
+      do Tile.drawLetter(c, tryno, 5+i);
       let i = i + 1;
     }
     return word;
   }
 
   function void checkGuess(String guess) {
-    var int i, result;
+    var int i, result, tryno;
+
+    let tryno = 1;
 
     let i = 0;
     while (i < 5) {
         let result = Main.checkChar(guess, i);
         if(result = GUESS_EXACT) {
-          do Tile.drawBlack(167+(i*32), 32);
-          do Letter.draw(guess.charAt(i), 1280 + 11 + (i * 2), false);
+          do Tile.drawSolidLetter(guess.charAt(i), tryno, 5+i);
+        } else{if (result = GUESS_IN_WORD) { // ugh.
+          do Tile.drawGrayLetter(guess.charAt(i), tryno, 5+i);
         } else {
-          if (result = GUESS_IN_WORD) { // ugh.
-            do Tile.drawGray(167+(i*32), 32);
-            do Letter.draw(guess.charAt(i), 1280 + 11 + (i * 2), true);
-          } else {
-            do Tile.drawWhite(167+(i*32), 32);
-            do Letter.draw(guess.charAt(i), 1280 + 11 + (i * 2), true);
-          }
-        }
+          do Tile.drawOutlinedLetter(guess.charAt(i), tryno, 5+i);
+        }}
         let i = i + 1;
     }
 
@@ -91,16 +95,12 @@ class Main {
   }
 
   function void drawFirstRow() {
-    do Tile.drawBlack(167, 0);
-    do Letter.draw(83, 256 + 11, false); // S
-    do Tile.drawWhite(199, 0);
-    do Letter.draw(72, 256 + 13, true); // H
-    do Tile.drawWhite(231, 0);
-    do Letter.draw(73, 256 + 15, true); // I
-    do Tile.drawBlack(263, 0);
-    do Letter.draw(82, 256 + 17, false); // R
-    do Tile.drawGray(295, 0);
-    do Letter.draw(69, 256 + 19, true); // E
+    do Tile.drawSolidLetter(83, 0, 5);
+    do Tile.drawOutlinedLetter(72, 0, 6);
+    do Tile.drawOutlinedLetter(73, 0, 7);
+    do Tile.drawSolidLetter(82, 0, 8);
+    do Tile.drawGrayLetter(69, 0, 9);
+    
     return;
   }
 

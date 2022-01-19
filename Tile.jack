@@ -1,4 +1,114 @@
+/*
+We have a tile grid of 8x15:
+
+00  01  02  03  04  05  06  07  08  09  0A  0B  0C  0D
+10  11  12  13  14  15  16  17  18  19  1A  1B  1C  1D
+20  21  22  23  24  25  26  27  28  29  2A  2B  2C  2D
+30  31  32  33  34  35  36  37  38  39  3A  3B  3C  3D
+40  41  42  43  44  45  46  47  48  49  4A  4B  4C  4D
+40  41  42  43  44  45  46  47  48  49  4A  4B  4C  4D
+50  51  52  53  54  55  56  57  58  59  5A  5B  5C  5D
+60  61  62  63  64  65  66  67  68  69  6A  6B  6C  6D
+70  71  72  73  74  75  76  77  78  79  7A  7B  7C  7D
+*/
 class Tile {
+
+
+  function void drawGrid() {
+    var int r, c;
+
+    let r = 0; 
+    let c = 0;
+    while(r < 8) {
+       while(c < 15) {
+          do Tile.drawOutlinedLetter(88, r, c);
+          let c = c + 1;
+       }
+       let r = r + 1;
+       let c = 0;
+    }
+    return;
+  }
+  
+  function int to_x(int col) {
+    return (col*32) + 8;
+  }
+  
+  function int to_y(int row) {
+    return row*32;
+  }
+
+  function int to_memloc(int row, int col) {
+    return (row*1024+256) + (2*col+1);
+  }
+  
+  function void drawLetter(char c, int row, int col) {
+    do Letter.drawBlack(c, Tile.to_memloc(row, col)); 
+    return;
+  }
+
+  function void drawSolidLetter(char c, int row, int col) {
+    var int memloc, x, y;
+
+    //col/row -> pixels
+    let x = (col*32) + 8;
+    let y = row * 32;
+    do Screen.setColor(true);
+    do Screen.drawRectangle(x, y+1, x+30, y+31);
+    let memloc = ((y+8) * 32) + (2*col+1);
+    do Letter.drawWhite(c, memloc); 
+
+    return;
+  }
+
+  function void drawOutlinedLetter(char c, int row, int col) {
+    var int memloc, x, y;
+
+    //col/row -> pixels
+    let x = (col*32) + 8;
+    let y = row * 32;
+    do Screen.drawLine(x, y+1, x+30, y+1); //top line
+    do Screen.drawLine(x, y+1, x, y+31); //left line
+    do Screen.drawLine(x+30, y+1, x+30, y+31); //right line
+    do Screen.drawLine(x, y+31, x+30, y+31); //bottom line
+    
+    let memloc = ((y+8) * 32) + (2*col+1);
+    do Letter.drawBlack(c, memloc); 
+
+    return;
+  }
+  
+  function void drawGrayLetter(char c, int row, int col) {
+    var int memloc, x, y;
+
+    //col/row -> pixels
+    let x = (col*32) + 8;
+    let y = row * 32;
+    do Screen.drawLine(x, y+1, x+30, y+1); //top line
+    do Screen.drawLine(x, y+3, x+30, y+3); 
+    do Screen.drawLine(x, y+5, x+30, y+5); 
+    do Screen.drawLine(x, y+7, x+30, y+7); 
+    do Screen.drawLine(x, y+9, x+30, y+9); 
+    do Screen.drawLine(x, y+11, x+30, y+11); 
+    do Screen.drawLine(x, y+13, x+30, y+13); 
+    do Screen.drawLine(x, y+15, x+30, y+15); 
+    do Screen.drawLine(x, y+17, x+30, y+17); 
+    do Screen.drawLine(x, y+19, x+30, y+19); 
+    do Screen.drawLine(x, y+21, x+30, y+21); 
+    do Screen.drawLine(x, y+23, x+30, y+23); 
+    do Screen.drawLine(x, y+25, x+30, y+25); 
+    do Screen.drawLine(x, y+27, x+30, y+27); 
+    do Screen.drawLine(x, y+29, x+30, y+29); 
+    do Screen.drawLine(x, y+31, x+30, y+31); //bottom line
+    do Screen.drawLine(x, y+1, x, y+31); //left line
+    do Screen.drawLine(x+30, y+1, x+30, y+31); //right line
+    
+    let memloc = ((y+8) * 32) + (2*col+1);
+    do Letter.drawBlack(c, memloc); 
+
+    return;
+  }
+
   function void drawBlack(int x, int y) {
     do Screen.setColor(true);
     do Screen.drawRectangle(x+1, y+1, x+31, y+31);
@@ -14,7 +124,6 @@ class Tile {
     return;
   }
 
-  // TODO: implement.
   function void drawGray(int x, int y) {
     do Screen.setColor(true);
     do Screen.drawLine(x+1, y+1, x+31, y+1); //top line
