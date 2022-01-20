@@ -1,0 +1,46 @@
+class RandNumGen {
+    field int x;
+    
+    //Ask for user input. Use counter as seed.
+    function int genseed() {
+        var int counter; 
+        var char key; 
+
+        let counter = 0;
+        let key = 0;
+
+        do Output.printString("Press Any Key To Continue...");
+        while(key = 0) {
+            if(Keyboard.keyPressed()) {
+                do Keyboard.readChar(); //toss away char
+                do Output.moveCursor(0,0); //reset cursor
+                do Screen.clearScreen();
+                return counter;
+            }
+            let counter = counter + 1;
+        }
+        return 0;
+    }
+
+    constructor RandNumGen new(int seed) {
+        let x = seed;
+        return this;
+    }
+
+    /** 
+         return a random number in the range 0..32767 
+         credit to: https://github.com/xctom/Nand2Tetris/blob/master/projects/09/PigDice/Random.jack
+         TODO: improve 
+     */
+    method int rand() {
+        let x = x + 20251;
+
+        if (x < 0) {
+            let x = x - 32767 - 1;
+        }
+
+        return x;
+    }
+
+}
+

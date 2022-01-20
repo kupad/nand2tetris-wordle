@@ -1,15 +1,20 @@
 class Main {
   static String secret;
+  static RandNumGen RNG;
   static int GUESS_WRONG, GUESS_EXACT, GUESS_IN_WORD;
 
   function void main() {
+    var int seed;
+
     //initialize statics
     let GUESS_WRONG = 0;
     let GUESS_EXACT = 1;
     let GUESS_IN_WORD = 2;
     do Dictionary.init();
     do Letter.init();
-    do RNG.init(); 
+
+    let seed = RandNumGen.genseed();
+    let RNG = RandNumGen.new(seed);
 
     //do Tile.drawGrid();
     //do Main.drawFirstRow();
@@ -25,8 +30,11 @@ class Main {
     var int round, n;
     var boolean won;
 
-    let n = RNG.next();
+    let n = RNG.rand();
     let secret = Dictionary.word(Util.mod(n, Dictionary.size()));
+
+    //do Main.printSecret(secret); //for debugging
+
     let round = 0;
     while(~won & (round < 6)) {
         let guess = Main.readWord(round);
@@ -36,6 +44,15 @@ class Main {
 
     return;
   }
+
+  function void printSecret(String secret) {
+    do Output.moveCursor(22,0);
+    do Output.printString(secret);
+    do Output.moveCursor(0,0);
+    return;
+  }
+
+
   
   function String readWord(int round) {
     var int i;
