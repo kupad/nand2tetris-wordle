@@ -9,6 +9,7 @@ class Main {
     let GUESS_IN_WORD = 2;
     do Dictionary.init();
     do Letter.init();
+    do RNG.init(); 
 
     //do Tile.drawGrid();
     //do Main.drawFirstRow();
@@ -24,8 +25,7 @@ class Main {
     var int round, n;
     var boolean won;
 
-    let n = Keyboard.readInt("Enter a number: ");
-    do Screen.clearScreen();
+    let n = RNG.next();
     let secret = Dictionary.word(Util.mod(n, Dictionary.size()));
     let round = 0;
     while(~won & (round < 6)) {
