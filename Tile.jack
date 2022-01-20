@@ -109,6 +109,45 @@ class Tile {
     return;
   }
 
+  //TODO: can be made faster
+  function void drawDottedTile(int row, int col) {
+	var int i, x, y, memAddress, location;
+    
+    let x = (col*32) + 8;
+    let y = row * 32;
+    do Screen.setColor(true);
+    
+    //top
+    let i = 0;
+    while(i < 31) {
+        do Screen.drawPixel(x+i, y+1);
+        let i = i+2;
+    }
+   
+    //left 
+    let i = 0;
+    while(i < 32) {
+        do Screen.drawPixel(x, y+i+1);
+        let i = i+2;
+    }
+    
+    //right
+    let i = 0;
+    while(i < 31) {
+        do Screen.drawPixel(x+30, y+i+1);
+        let i = i+2;
+    }
+    
+    //bottom
+    let i = 0;
+    while(i < 31) {
+        do Screen.drawPixel(x+i, y+31);
+        let i = i+2;
+    }
+
+	return;
+  }
+
   function void drawBlack(int x, int y) {
     do Screen.setColor(true);
     do Screen.drawRectangle(x+1, y+1, x+31, y+31);

@@ -41,8 +41,13 @@ class Main {
     var int i;
     var char c;
     var String word;
-
     let word = String.new(5);
+   
+    do Tile.drawDottedTile(round, 5);
+    do Tile.drawDottedTile(round, 6);
+    do Tile.drawDottedTile(round, 7);
+    do Tile.drawDottedTile(round, 8);
+    do Tile.drawDottedTile(round, 9);
 
     let i = 0;
     while (i < 5) {
