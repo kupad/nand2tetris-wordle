@@ -1,5 +1,4 @@
-TOOLS = ../tools
-SRC = .
+TOOLS = ~/dev/nand2tetris/tools
 PYTHON  = python3
 DICT = '/usr/share/dict/american-english'
 #DICT = '/usr/share/dict/spanish'
