@@ -19,5 +19,8 @@ dictionary: Dictionary.jack
 run: build
 	$(TOOLS)/VMEmulator.sh
 
+kill:
+	pkill -f 'java.*VMEmulatorMain'
+
 clean:
 	rm -rf *.vm Dictionary.jack
