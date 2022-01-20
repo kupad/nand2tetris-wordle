@@ -1,21 +1,23 @@
 TOOLS = ../tools
 SRC = .
 PYTHON  = python3
+DICT = '/usr/share/dict/american-english'
+#DICT = '/usr/share/dict/spanish'
+
 
 .DEFAULT_GOAL := build
 
-.PHONY: dict
-Dictionary.jack:
-	$(PYTHON) gendict.py > Dictionary.jack
-
-.PHONY: build
 build: Dictionary.jack
 	$(TOOLS)/JackCompiler.sh .
 
-.PHONY: run
-run: 
+Dictionary.jack: gendict.py
+	$(PYTHON) gendict.py $(DICT)
+
+.PHONY: dictionary
+dictionary: Dictionary.jack
+
+run: build
 	$(TOOLS)/VMEmulator.sh
 
-.PHONY: clean
 clean:
 	rm -rf *.vm Dictionary.jack

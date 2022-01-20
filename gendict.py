@@ -1,12 +1,17 @@
 import re
+import sys
 import random
 
 MAX_WORDS = 1000
 
-dictpath = '/usr/share/dict/american-english'
-
 
 def main():
+    if len(sys.argv) < 2:
+        print("USAGE: gendict.py {path-to-dict}")
+        sys.exit(1)
+
+    dictpath = sys.argv[1]
+
     words = []
     widx = 0
     with open(dictpath, 'r') as dfile:
@@ -28,7 +33,9 @@ def main():
     out = (template
            .replace('XXX_SIZE_XXX', str(len(code)))
            .replace('XXX_WORDS_XXX', '\n'.join(code)))
-    print(out)
+
+    with open('Dictionary.jack', 'w') as jack:
+        print(out, file=jack)
 
 
 main()
