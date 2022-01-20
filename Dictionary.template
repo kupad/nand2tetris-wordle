@@ -1,0 +1,22 @@
+class Dictionary {
+  static Array WORDS;
+  static int SIZE;
+
+  function int size() {
+    return SIZE;
+  }
+
+  function String word(int i) {
+    return WORDS[i];
+  }
+
+  /** Make sure to call this function before playing. */
+  function void init() {
+    let SIZE = XXX_SIZE_XXX;
+    let WORDS = Array.new(SIZE);
+    //AUTO_GENERATED_START
+XXX_WORDS_XXX
+    //AUTO_GENERATED_END
+    return;
+  }
+}
