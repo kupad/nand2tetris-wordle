@@ -33,7 +33,7 @@ class Main {
     let n = RNG.rand();
     let secret = Dictionary.word(Util.mod(n, Dictionary.size()));
 
-    //do Main.printSecret(secret); //for debugging
+    do Main.printSecret(secret); //for debugging
 
     let j = 0;
     while (j < 6) {
@@ -52,6 +52,14 @@ class Main {
         let round = round + 1;
     }
 
+    if(won) {
+        do Output.moveCursor(1, 27);
+        do Output.printString("You Won!");
+    } else {
+        do Output.moveCursor(1, 28);
+        do Output.printString(secret);
+    }
+
     return;
   }
 
@@ -63,7 +71,6 @@ class Main {
   }
 
 
-  
   function String readWord(int row) {
     var int i;
     var char c;
