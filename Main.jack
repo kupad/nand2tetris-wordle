@@ -27,7 +27,7 @@ class Main {
 
   function void game() {
     var String guess;
-    var int round, n;
+    var int round, n, j, k;
     var boolean won;
 
     let n = RNG.rand();
@@ -35,10 +35,20 @@ class Main {
 
     //do Main.printSecret(secret); //for debugging
 
+    let j = 0;
+    while (j < 6) {
+      let k = 0;
+      while (k < 5) {
+        do Tile.drawDottedTile(j + 1, (k + 5));
+        let k = k + 1;
+      }
+      let j = j + 1;
+    }
+
     let round = 0;
     while(~won & (round < 6)) {
-        let guess = Main.readWord(round);
-        let won = Main.checkGuess(round, guess);
+        let guess = Main.readWord(round + 1);
+        let won = Main.checkGuess(round + 1, guess);
         let round = round + 1;
     }
 
@@ -54,17 +64,11 @@ class Main {
 
 
   
-  function String readWord(int round) {
+  function String readWord(int row) {
     var int i;
     var char c;
     var String word;
     let word = String.new(5);
-   
-    do Tile.drawDottedTile(round, 5);
-    do Tile.drawDottedTile(round, 6);
-    do Tile.drawDottedTile(round, 7);
-    do Tile.drawDottedTile(round, 8);
-    do Tile.drawDottedTile(round, 9);
 
     let i = 0;
     while (i < 5) {
@@ -74,13 +78,13 @@ class Main {
         do Output.backSpace();
       }
       do word.appendChar(c);
-      do Tile.drawLetter(c, round, 5+i);
+      do Tile.drawLetter(c, row, 5+i);
       let i = i + 1;
     }
     return word;
   }
 
-  function boolean checkGuess(int round, String guess) {
+  function boolean checkGuess(int row, String guess) {
     var int i, result;
     var boolean isexact;
 
@@ -90,12 +94,12 @@ class Main {
     while (i < 5) {
         let result = Main.checkChar(guess, i);
         if(result = GUESS_EXACT) {
-          do Tile.drawSolidLetter(guess.charAt(i), round, 5+i);
+          do Tile.drawSolidLetter(guess.charAt(i), row, 5+i);
         } else{if (result = GUESS_IN_WORD) { // ugh.
-          do Tile.drawGrayLetter(guess.charAt(i), round, 5+i);
+          do Tile.drawGrayLetter(guess.charAt(i), row, 5+i);
           let isexact = false;
         } else {
-          do Tile.drawOutlinedLetter(guess.charAt(i), round, 5+i);
+          do Tile.drawOutlinedLetter(guess.charAt(i), row, 5+i);
           let isexact = false;
         }}
         let i = i + 1;

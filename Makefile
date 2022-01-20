@@ -1,3 +1,4 @@
+.PHONY: dictionary run kill clean
 TOOLS = ../tools
 PYTHON  = python3
 DICT = '/usr/share/dict/american-english'
@@ -12,7 +13,6 @@ build: Dictionary.jack
 Dictionary.jack: gendict.py
 	$(PYTHON) gendict.py $(DICT)
 
-.PHONY: dictionary
 dictionary: Dictionary.jack
 
 run: build

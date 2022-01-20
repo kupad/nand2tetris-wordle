@@ -4,15 +4,10 @@ Wordle implemented in JACK
 by Jonathan Reyes and Phil Dreizen
 
 ## TODOs
-- Dotted line tile for each round
+- Remove GUESS_EXACT letters from GUESS_IN_WORD clues
+- Show secret word if player loses, tell player if they won or lost
 - Handle backspace
 - Wait for ENTER key to confirm word
-- Tell player if they won or lost
-- Remove GUESS_EXACT letters from GUESS_IN_WORD clues
-- Enforce only valid words?
-- Let player pick language? Or compile different languages separately?
+- Add Spanish language support
 - Optimize dictionary size with compression?
-- How do we pick words from the dictionary?
-  + Enter a date?
-  + Enter a number?
-  + PRNG (seeded with what)?
+- Enforce only valid words?
