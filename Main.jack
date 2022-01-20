@@ -32,8 +32,9 @@ class Main {
 
     let n = RNG.rand();
     let secret = Dictionary.word(Util.mod(n, Dictionary.size()));
+    //let secret = "STUFF";
 
-    do Main.printSecret(secret); //for debugging
+    //do Main.printSecret(secret); //for debugging
 
     let j = 0;
     while (j < 6) {
@@ -91,31 +92,68 @@ class Main {
     return word;
   }
 
+  //returns true if correct guess
+  //sideeffect: draw to screen
   function boolean checkGuess(int row, String guess) {
-    var int i, result;
+    var int i, k, result, c;
     var boolean isexact;
+    var Array outstanding;
+   
+    //initialize outstanding to 0s
+    let outstanding = Array.new(27);
+    let i = 0;
+    while(i < 27) {
+        let outstanding[i] = 0;
+        let i = i + 1;
+    }
+
+    //count letters in secret
+    let i = 0;
+    while(i < 5) {
+        let k = secret.charAt(i)-65;
+        let outstanding[k] = outstanding[k] + 1;
+        let i = i + 1;
+    }
 
     let isexact = true;
-
+   
+    //check for exacts
     let i = 0;
     while (i < 5) {
-        let result = Main.checkChar(guess, i);
+        let result = Main.checkChar(i, guess, outstanding);
         if(result = GUESS_EXACT) {
-          do Tile.drawSolidLetter(guess.charAt(i), row, 5+i);
-        } else{if (result = GUESS_IN_WORD) { // ugh.
-          do Tile.drawGrayLetter(guess.charAt(i), row, 5+i);
-          let isexact = false;
+          let c = guess.charAt(i);
+          do Tile.drawSolidLetter(c, row, 5+i);
+          let k = c - 65;
+          let outstanding[k] = outstanding[k] - 1;
         } else {
-          do Tile.drawOutlinedLetter(guess.charAt(i), row, 5+i);
           let isexact = false;
+        }
+        let i = i + 1;
+    }
+
+    //if(isexact) {
+    //    return true;
+    //}
+
+    //check the rest
+    let i = 0;
+    while (i < 5) {
+        let result = Main.checkChar(i, guess, outstanding);
+        if (result = GUESS_IN_WORD) {
+          do Tile.drawGrayLetter(guess.charAt(i), row, 5+i);
+        } else{if(result = GUESS_WRONG) {
+          do Tile.drawOutlinedLetter(guess.charAt(i), row, 5+i);
         }}
         let i = i + 1;
     }
 
+    do outstanding.dispose();
+
     return isexact;
   }
 
-  function int checkChar(String guess, int i) {
+  function int checkChar(int i, String guess, Array outstanding) {
     var char c;
     var int j;
 
@@ -124,12 +162,14 @@ class Main {
       return GUESS_EXACT;
     }
 
-    let j = 0;
-    while (j < 5) {
-      if (c = secret.charAt(j)) {
-        return GUESS_IN_WORD;
-      }
-      let j = j + 1;
+    if(~(outstanding[c-65] = 0)) {
+        let j = 0;
+        while (j < 5) {
+          if (c = secret.charAt(j)) {
+            return GUESS_IN_WORD;
+          }
+          let j = j + 1;
+        }
     }
 
     return GUESS_WRONG;
