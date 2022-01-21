@@ -148,18 +148,14 @@ class Tile {
 	return;
   }
 
-  function void drawBlack(int x, int y) {
-    do Screen.setColor(true);
-    do Screen.drawRectangle(x+1, y+1, x+31, y+31);
-    return;
-  }
-
-  function void drawWhite(int x, int y) {
-    do Screen.setColor(true);
-    do Screen.drawLine(x+1, y+1, x+31, y+1); //top line
-    do Screen.drawLine(x+1, y+1, x+1, y+31); //left line
-    do Screen.drawLine(x+31, y+1, x+31, y+31); //right line
-    do Screen.drawLine(x+1, y+31, x+31, y+31); //bottom line
+  /** Empties out a tile. */
+  function void drawEmpty(int row, int col) {
+    var int x, y;
+    //col/row -> pixels
+    let x = (col*32) + 8;
+    let y = row * 32;
+    do Screen.setColor(false);
+    do Screen.drawRectangle(x, y+1, x+30, y+31);
     return;
   }
 
