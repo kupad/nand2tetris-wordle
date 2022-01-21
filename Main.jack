@@ -16,10 +16,6 @@ class Main {
     let seed = RandNumGen.genseed();
     let RNG = RandNumGen.new(seed);
 
-    //do Tile.drawGrid();
-    //do Main.drawFirstRow();
-    //do Main.drawAlphabet();
-
     do Main.game();
 
     return;
@@ -32,19 +28,11 @@ class Main {
 
     let n = RNG.rand();
     let secret = Dictionary.word(Util.mod(n, Dictionary.size()));
-    //let secret = "STUFF";
 
+    //let secret = "STUFF";
     //do Main.printSecret(secret); //for debugging
 
-    let j = 0;
-    while (j < 6) {
-      let k = 0;
-      while (k < 5) {
-        do Tile.drawDottedTile(j + 1, (k + 5));
-        let k = k + 1;
-      }
-      let j = j + 1;
-    }
+    do Main.drawPlaceholders();
 
     let round = 0;
     while(~won & (round < 6)) {
@@ -61,6 +49,20 @@ class Main {
         do Output.printString(secret);
     }
 
+    return;
+  }
+
+  function void drawPlaceholders() {
+    var int i, j;
+    let i = 0;
+    while (i < 6) {
+      let j = 0;
+      while (j < 5) {
+        do Tile.drawDottedTile(i + 1, (j + 5));
+        let j = j + 1;
+      }
+      let i = i + 1;
+    }
     return;
   }
 
@@ -81,7 +83,7 @@ class Main {
     let i = 0;
     while (i < 5) {
       let c = 0; // c is invalid at the start.
-      while (~Main.isLetter(c)) {
+      while (~Util.isLetter(c)) {
         let c = Keyboard.readChar();
         do Output.backSpace();
       }
@@ -173,32 +175,5 @@ class Main {
     }
 
     return GUESS_WRONG;
-  }
-
-  function boolean isLetter(char c) {
-    return ((c > 64) & (c < 91)) | (c = 59);
-  }
-
-  function void drawFirstRow() {
-    do Tile.drawSolidLetter(83, 0, 5);
-    do Tile.drawOutlinedLetter(72, 0, 6);
-    do Tile.drawOutlinedLetter(73, 0, 7);
-    do Tile.drawSolidLetter(82, 0, 8);
-    do Tile.drawGrayLetter(69, 0, 9);
-    
-    return;
-  }
-
-  function void drawAlphabet() {
-    var int i;
-    let i = 0;
-    do Screen.setColor(true);
-    do Screen.drawRectangle(0, 224, 511, 255);
-    while (i < 27) {
-      do Letter.draw(i + 65, i + 6400 + 2, true);
-      do Letter.draw(i + 65, i + 7424 + 2, false);
-      let i = i + 1;
-    }
-    return;
   }
 }

@@ -3,4 +3,20 @@ class Util {
   function int mod(int x, int y) {
     return x - ((x / y) * y);
   }
+
+  /**
+   * 65-90: the uppercase letters in the English alphabet
+   * 59: semicolon, which we use for Ñ
+   */
+  function boolean isLetter(char c) {
+    return ((c > 64) & (c < 91)) | (c = 59);
+  }
+
+  /**
+   * 128: enter
+   * 129: backspace
+   */
+  function boolean isValidKey(char c) {
+    return Util.isLetter(c) | (c = 128) | (c = 129);
+  }
 }
