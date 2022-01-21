@@ -2,6 +2,7 @@ class Main {
   static String secret;
   static RandNumGen RNG;
   static int GUESS_WRONG, GUESS_EXACT, GUESS_IN_WORD;
+  static Array WIN_WORDS;
 
   function void main() {
     var int seed;
@@ -12,6 +13,14 @@ class Main {
     let GUESS_IN_WORD = 2;
     do Dictionary.init();
     do Letter.init();
+
+    let WIN_WORDS = Array.new(6); 
+    let WIN_WORDS[0] = "  Genius   ";
+    let WIN_WORDS[1] = "Magnificent";
+    let WIN_WORDS[2] = "Impressive ";
+    let WIN_WORDS[3] = " Splendid  ";
+    let WIN_WORDS[4] = "   Great   ";
+    let WIN_WORDS[5] = "   Phew    ";
 
     let seed = RandNumGen.genseed();
     let RNG = RandNumGen.new(seed);
@@ -29,8 +38,8 @@ class Main {
     let n = RNG.rand();
     let secret = Dictionary.word(Util.mod(n, Dictionary.size()));
 
-    //let secret = "STUFF";
-    //do Main.printSecret(secret); //for debugging
+    //let secret = "DEBUG";
+    //do Main.printSecret(secret); //DEBUG
 
     do Main.drawPlaceholders();
 
@@ -42,8 +51,8 @@ class Main {
     }
 
     if(won) {
-        do Output.moveCursor(1, 27);
-        do Output.printString("You Won!");
+        do Output.moveCursor(1, 26);
+        do Output.printString(WIN_WORDS[round-1]);
     } else {
         do Output.moveCursor(1, 28);
         do Output.printString(secret);
